@@ -1,6 +1,5 @@
 package fr.thegostsniperfr;
 
-import com.sun.istack.internal.Nullable;
 import fr.thegostsniperfr.distribution.OsType;
 import fr.thegostsniperfr.archive.TazGzUtils;
 import fr.thegostsniperfr.archive.ZipUtils;
@@ -17,7 +16,7 @@ public class JavaDownloader {
     private final Callback callback;
     private final boolean cleanArchive;
 
-    public JavaDownloader(Path installPath, JavaVersionInfo javaVersionInfo, @Nullable Callback callback, boolean cleanArchive) {
+    public JavaDownloader(Path installPath, JavaVersionInfo javaVersionInfo, Callback callback, boolean cleanArchive) {
         this.installPath = installPath;
         this.javaVersionInfo = javaVersionInfo;
         this.callback = callback;
