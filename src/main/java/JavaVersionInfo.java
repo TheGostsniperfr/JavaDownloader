@@ -2,8 +2,6 @@ import distribution.ArchType;
 import distribution.JavaType;
 import distribution.OsType;
 
-import java.nio.file.Path;
-
 public class JavaVersionInfo {
     private final String javaVersion;
     private final JavaType javaType;
@@ -43,7 +41,7 @@ public class JavaVersionInfo {
         return this.getOsType() == OsType.WINDOWS ? "zip" : "taz.gz";
     }
 
-    public String getName() {
+    public String getArchiveName() {
         return "java_" + this.getJavaType().getType()+ "_" + this.getJavaVersion() + "_archive." + this.getArchiveType();
     }
 }

@@ -10,17 +10,18 @@ public class main {
     public static void main(String[] args) {
         Path installPath = new File("C:\\Users\\brian\\Desktop\\installJava").toPath();
         JavaDownloader javaDownloader = new JavaDownloader(
-                installPath,
-                new JavaVersionInfo(
+                installPath, new JavaVersionInfo(
                         "17",
                         JavaType.JRE,
                         OsType.WINDOWS,
                         ArchType.X64,
                         true),
-                System.out::println);
+                        System.out::println,
+                        false);
 
         try {
-            javaDownloader.downloadAndExtract();
+            Path javaDirPath = javaDownloader.downloadAndExtract();
+            System.out.println("Java dir path is " + javaDirPath);
         } catch (IOException e) {
             e.printStackTrace();
         }

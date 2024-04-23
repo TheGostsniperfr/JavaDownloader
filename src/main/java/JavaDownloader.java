@@ -1,15 +1,9 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.sun.istack.internal.Nullable;
 import distribution.OsType;
+import fr.thegostsniperfr.archive.TazGzUtils;
+import fr.thegostsniperfr.archive.ZipUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -19,15 +13,17 @@ public class JavaDownloader {
     private final Path installPath;
     private final JavaVersionInfo javaVersionInfo;
     private final Callback callback;
+    private final boolean cleanArchive;
 
-    public JavaDownloader(Path installPath, JavaVersionInfo javaVersionInfo, @Nullable Callback callback) {
+    public JavaDownloader(Path installPath, JavaVersionInfo javaVersionInfo, @Nullable Callback callback, boolean cleanArchive) {
         this.installPath = installPath;
         this.javaVersionInfo = javaVersionInfo;
         this.callback = callback;
+        this.cleanArchive = cleanArchive;
     }
 
-    public void downloadAndExtract() throws IOException {
-        final Path archivePath = this.getInstallPath().resolve(this.javaVersionInfo.getName());
+    public Path downloadAndExtract() throws IOException {
+        final Path archivePath = this.getInstallPath().resolve(this.javaVersionInfo.getArchiveName());
 
         if(!Files.exists(archivePath)) {
             Files.createDirectories(this.getInstallPath());
@@ -38,8 +34,9 @@ public class JavaDownloader {
             this.callback.onStep(Callback.Step.FETCHING);
         }
 
-        final URL archiveUrl = AzulApiRequest.getArchiveUrl(this.javaVersionInfo);
-        System.out.println(archiveUrl);
+        AzulApiRequest apiRequest = new AzulApiRequest(this.javaVersionInfo);
+
+        System.out.println(apiRequest.getArchiveUrl());
 
         // Download archive
         if(this.callback != null) {
@@ -47,25 +44,29 @@ public class JavaDownloader {
         }
 
         if(!Files.exists(archivePath)){
-            Files.copy(archiveUrl.openStream(), archivePath, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(apiRequest.getArchiveUrl().openStream(), archivePath, StandardCopyOption.REPLACE_EXISTING);
         }
-
 
         // Extract archive
         if(this.callback != null) {
             this.callback.onStep(Callback.Step.EXTRACTING);
         }
 
-        // TODO
         if(this.javaVersionInfo.getOsType() == OsType.WINDOWS) {
-
+            ZipUtils.Unzip(archivePath, this.getInstallPath());
         } else {
-
+            TazGzUtils.decompressTarGz(archivePath, this.getInstallPath());
         }
 
         if(this.callback != null) {
             this.callback.onStep(Callback.Step.DONE);
         }
+
+        if(this.cleanArchive) {
+            Files.delete(archivePath);
+        }
+
+        return this.installPath.resolve(apiRequest.getJavaHomeDirName());
     }
 
     public Path getInstallPath() {
@@ -74,5 +75,9 @@ public class JavaDownloader {
 
     public JavaVersionInfo getJavaVersionInfo() {
         return javaVersionInfo;
+    }
+
+    public boolean isCleanArchive() {
+        return cleanArchive;
     }
 }

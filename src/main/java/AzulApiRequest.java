@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,19 +12,32 @@ import java.net.URL;
 public class AzulApiRequest {
     private static final String AZUL_ENDPOINT = "https://api.azul.com/metadata/v1/zulu/packages/";
 
-    public static URL getArchiveUrl(JavaVersionInfo javaVersionInfo) throws MalformedURLException {
-        final JsonArray response = getAPIResponse(javaVersionInfo);
+    private final JavaVersionInfo javaVersionInfo;
+    private URL archiveUrl;
+    private String javaHomeDirName;
+
+    public AzulApiRequest(JavaVersionInfo javaVersionInfo) throws MalformedURLException {
+        this.javaVersionInfo = javaVersionInfo;
+
+        this.parseApiResponse();
+    }
+
+    public void parseApiResponse() throws MalformedURLException {
+        final JsonArray response = getAPIResponse();
         if (response.isEmpty()) {
             throw new RuntimeException("No response");
         }
 
-        String downloadUrl = response.get(0).getAsJsonObject().get("download_url").getAsString();
-        return new URL(downloadUrl);
+        JsonObject javaVersion = response.get(0).getAsJsonObject();
+        this.archiveUrl = new URL(javaVersion.get("download_url").getAsString());
+
+        this.javaHomeDirName = javaVersion.get("name").getAsString()
+                .replace("." + this.javaVersionInfo.getArchiveType(), "");
     }
 
-    private static JsonArray getAPIResponse(JavaVersionInfo javaVersionInfo) {
+    private JsonArray getAPIResponse() {
         try {
-            HttpURLConnection conn = (HttpURLConnection) buildRequestUrl(javaVersionInfo).openConnection();
+            HttpURLConnection conn = (HttpURLConnection) buildRequestUrl().openConnection();
             conn.setRequestMethod("GET");
 
             int responseCode = conn.getResponseCode();
@@ -47,7 +61,7 @@ public class AzulApiRequest {
         }
     }
 
-    private static URL buildRequestUrl(JavaVersionInfo javaVersionInfo) throws MalformedURLException {
+    private URL buildRequestUrl() throws MalformedURLException {
         return new URL(AZUL_ENDPOINT +
                 "?java_version=" + javaVersionInfo.getJavaVersion() +
                 "&os=" + javaVersionInfo.getOsType().getType() +
@@ -59,5 +73,13 @@ public class AzulApiRequest {
                 "&archive_type=" + javaVersionInfo.getArchiveType() +
                 "&page=1&page_size=100"
         );
+    }
+
+    public URL getArchiveUrl() {
+        return archiveUrl;
+    }
+
+    public String getJavaHomeDirName() {
+        return javaHomeDirName;
     }
 }
