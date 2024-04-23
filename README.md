@@ -42,4 +42,4 @@ System.out.println("Java home dir path is " + javaDirPath);
 
 ## License
 
-This project is licensed under the CC BY-NC-ND 4.0. licence. You can consult the complete text of the licence in the file [LICENSE](LICENSE).
+This project is licensed under the MIT. You can consult the complete text of the licence in the file [LICENSE](LICENSE).
