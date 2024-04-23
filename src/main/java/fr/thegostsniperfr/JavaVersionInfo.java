@@ -1,6 +1,8 @@
-import distribution.ArchType;
-import distribution.JavaType;
-import distribution.OsType;
+package fr.thegostsniperfr;
+
+import fr.thegostsniperfr.distribution.ArchType;
+import fr.thegostsniperfr.distribution.JavaType;
+import fr.thegostsniperfr.distribution.OsType;
 
 public class JavaVersionInfo {
     private final String javaVersion;

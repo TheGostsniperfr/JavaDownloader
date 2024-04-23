@@ -1,3 +1,5 @@
+package fr.thegostsniperfr;
+
 public interface Callback {
 
     void onStep(Step step);

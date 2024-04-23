@@ -1,4 +1,4 @@
-package distribution;
+package fr.thegostsniperfr.distribution;
 
 public enum ArchType {
     X86("x86"),

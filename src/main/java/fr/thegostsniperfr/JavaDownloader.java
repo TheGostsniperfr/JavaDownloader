@@ -1,5 +1,7 @@
+package fr.thegostsniperfr;
+
 import com.sun.istack.internal.Nullable;
-import distribution.OsType;
+import fr.thegostsniperfr.distribution.OsType;
 import fr.thegostsniperfr.archive.TazGzUtils;
 import fr.thegostsniperfr.archive.ZipUtils;
 
@@ -66,18 +68,10 @@ public class JavaDownloader {
             Files.delete(archivePath);
         }
 
-        return this.installPath.resolve(apiRequest.getJavaHomeDirName());
+        return this.installPath.resolve(apiRequest.getJavaHomeDirName()).toAbsolutePath();
     }
 
     public Path getInstallPath() {
         return installPath;
-    }
-
-    public JavaVersionInfo getJavaVersionInfo() {
-        return javaVersionInfo;
-    }
-
-    public boolean isCleanArchive() {
-        return cleanArchive;
     }
 }
