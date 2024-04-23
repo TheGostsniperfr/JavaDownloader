@@ -1,4 +1,4 @@
-package fr.thegostsniperfr;
+package fr.thegostsniperfr.java_downloader;
 
 public interface Callback {
 

@@ -1,4 +1,4 @@
-package fr.thegostsniperfr;
+package fr.thegostsniperfr.java_downloader;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

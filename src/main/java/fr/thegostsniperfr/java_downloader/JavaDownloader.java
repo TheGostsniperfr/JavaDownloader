@@ -1,8 +1,8 @@
-package fr.thegostsniperfr;
+package fr.thegostsniperfr.java_downloader;
 
-import fr.thegostsniperfr.distribution.OsType;
-import fr.thegostsniperfr.archive.TazGzUtils;
-import fr.thegostsniperfr.archive.ZipUtils;
+import fr.thegostsniperfr.java_downloader.distribution.OsType;
+import fr.thegostsniperfr.java_toolbox.archive.TazGzUtils;
+import fr.thegostsniperfr.java_toolbox.archive.ZipUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;

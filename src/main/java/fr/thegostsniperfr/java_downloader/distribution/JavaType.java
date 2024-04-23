@@ -1,4 +1,4 @@
-package fr.thegostsniperfr.distribution;
+package fr.thegostsniperfr.java_downloader.distribution;
 
 public enum JavaType {
     JRE("jre"),

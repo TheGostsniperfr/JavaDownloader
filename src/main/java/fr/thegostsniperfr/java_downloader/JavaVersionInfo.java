@@ -1,8 +1,8 @@
-package fr.thegostsniperfr;
+package fr.thegostsniperfr.java_downloader;
 
-import fr.thegostsniperfr.distribution.ArchType;
-import fr.thegostsniperfr.distribution.JavaType;
-import fr.thegostsniperfr.distribution.OsType;
+import fr.thegostsniperfr.java_downloader.distribution.ArchType;
+import fr.thegostsniperfr.java_downloader.distribution.JavaType;
+import fr.thegostsniperfr.java_downloader.distribution.OsType;
 
 public class JavaVersionInfo {
     private final String javaVersion;
