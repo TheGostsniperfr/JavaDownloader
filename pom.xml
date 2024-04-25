@@ -35,7 +35,7 @@
         <dependency>
             <groupId>fr.thegostsniperfr</groupId>
             <artifactId>java_toolbox</artifactId>
-            <version>LATEST</version>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 

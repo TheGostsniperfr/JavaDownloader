@@ -1,8 +1,8 @@
 package fr.thegostsniperfr.java_downloader;
 
-import fr.thegostsniperfr.java_downloader.distribution.ArchType;
 import fr.thegostsniperfr.java_downloader.distribution.JavaType;
-import fr.thegostsniperfr.java_downloader.distribution.OsType;
+import fr.thegostsniperfr.java_toolbox.distribution.ArchType;
+import fr.thegostsniperfr.java_toolbox.distribution.OsType;
 
 public class JavaVersionInfo {
     private final String javaVersion;
@@ -40,7 +40,7 @@ public class JavaVersionInfo {
     }
 
     public String getArchiveType() {
-        return this.getOsType() == OsType.WINDOWS ? "zip" : "taz.gz";
+        return this.getOsType() == OsType.WINDOWS ? "zip" : "tar.gz";
     }
 
     public String getArchiveName() {

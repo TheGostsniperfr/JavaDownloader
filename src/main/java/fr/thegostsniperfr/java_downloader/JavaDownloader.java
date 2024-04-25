@@ -1,6 +1,6 @@
 package fr.thegostsniperfr.java_downloader;
 
-import fr.thegostsniperfr.java_downloader.distribution.OsType;
+import fr.thegostsniperfr.java_toolbox.distribution.OsType;
 import fr.thegostsniperfr.java_toolbox.archive.TazGzUtils;
 import fr.thegostsniperfr.java_toolbox.archive.ZipUtils;
 

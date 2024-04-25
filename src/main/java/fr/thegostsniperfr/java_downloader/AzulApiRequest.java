@@ -39,7 +39,7 @@ public class AzulApiRequest {
 
     private JsonArray getAPIResponse() {
         try {
-            HttpURLConnection conn = (HttpURLConnection) buildRequestUrl().openConnection();
+            HttpURLConnection conn = (HttpURLConnection) this.buildRequestUrl().openConnection();
             conn.setRequestMethod("GET");
 
             int responseCode = conn.getResponseCode();
@@ -73,7 +73,7 @@ public class AzulApiRequest {
                 "&support_term=lts" +
                 "&latest=true" +
                 "&archive_type=" + javaVersionInfo.getArchiveType() +
-                "&page=1&page_size=100"
+                "&page=1&page_size=1"
         );
     }
 
